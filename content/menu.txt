@@ -1,0 +1,5 @@
+index	Acceuil
+category/racine	Categorie Racine
+	article-1	Exemple d'article
+https://www.google.com/	Google
+mailto:shionn@gmail.com	Contact

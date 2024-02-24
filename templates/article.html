@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<article class="short" th:fragment="articleshort (article)">
+	<header>
+		<img th:if="${!#strings.isEmpty(article.logo)}" th:attr="src=${article.logo},title=${article.title},alt=${article.title}" />
+		<h1><a th:text="${article.title}" th:href="${article.url}"></a></h1>
+		<div>
+			<span th:text="${article.formatedDate}"></span>
+			<a th:href="${article.category.url}">Categorie : <th:block th:text="${article.category.name}"/></a>
+			<span>Tags : <a th:each="tag:${article.tags}" th:text="${tag.name}" th:href="${tag.url}"></a></span>
+		</div>
+	</header>
+	<section th:utext="${article.shortContent}"></section>
+	<footer><a th:href="${article.url}">Lire la suite</a></footer>
+</article>
+<article th:fragment="articlefull (article)">
+	<header>
+		<img th:if="${!#strings.isEmpty(article.logo)}" th:attr="src=${article.logo},title=${article.title},alt=${article.title}" />
+		<h1><a th:text="${article.title}" th:href="${article.url}"></a></h1>
+		<div>
+			<span th:text="${article.formatedDate}"></span>
+			<a th:href="${article.category.url}">Categorie : <th:block th:text="${article.category.name}"/></a>
+			<span>Tags : <a th:each="tag:${article.tags}" th:text="${tag.name}" th:href="${tag.url}"></a></span>
+		</div>
+	</header>
+	<section th:utext="${article.fullContent}"></section>
+	<footer>
+		Auteur <th:block th:text="${article.author}"/>, le <th:block th:text="${article.formatedDate}"/>
+		<span th:if="${article.updateDate}">, derniére modification le <th:block th:text="${article.formatedUpdateDate}"/></span>.
+		<hr>
+	</footer>
+</article>
+<div th:fragment="404">
+	<div>
+		<p><em>Mince alors !</em> Une 404.</p>
+	</div>
+</div>
+</body>
+</html>
