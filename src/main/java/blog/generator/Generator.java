@@ -24,7 +24,7 @@ public class Generator {
 		new Generator().generate();
 	}
 
-	private void generate() throws IOException {
+	public void generate() throws IOException {
 		Site site = new SiteBuilder().build();
 		prepareDestFolder(site);
 		TemplateEngine engine = new TemplateEngineBuilder().build();
