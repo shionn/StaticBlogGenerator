@@ -95,7 +95,7 @@ public class Article {
 	}
 
 	public String getAuthor() {
-		return "Shionn";
+		return metadata.getAuthor();
 	}
 
 	public List<String> getJs() {

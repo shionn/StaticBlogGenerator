@@ -1,5 +1,6 @@
 index	Acceuil
-category/racine	Categorie Racine
-	article-1	Exemple d'article
-https://www.google.com/	Google
+category/lorem-ipsum	Categorie Racine
+	article-1	Article 1
+	article-2	Article 2
+https://github.com/shionn/StaticBlogGenerator/	Source
 mailto:shionn@gmail.com	Contact

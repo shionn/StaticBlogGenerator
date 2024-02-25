@@ -6,13 +6,15 @@
 		<img th:if="${!#strings.isEmpty(article.logo)}" th:attr="src=${article.logo},title=${article.title},alt=${article.title}" />
 		<h1><a th:text="${article.title}" th:href="${article.url}"></a></h1>
 		<div>
-			<span th:text="${article.formatedDate}"></span>
-			<a th:href="${article.category.url}">Categorie : <th:block th:text="${article.category.name}"/></a>
-			<span>Tags : <a th:each="tag:${article.tags}" th:text="${tag.name}" th:href="${tag.url}"></a></span>
+			Le <span th:text="${article.formatedDate}"></span> ::
+			<a th:href="${article.category.url}">Categorie : <th:block th:text="${article.category.name}"/></a> ::
+			<span>Tags : <a th:each="tag:${article.tags}" th:text="${tag.name}" th:href="${tag.url}"></a></span> ::
+			Par <th:block th:text="${article.author}"/>
 		</div>
 	</header>
-	<section th:utext="${article.shortContent}"></section>
+	<section th:utext="${article.shortContent}" style="text-align: justify;"></section>
 	<footer><a th:href="${article.url}">Lire la suite</a></footer>
+	<hr>
 </article>
 <article th:fragment="articlefull (article)">
 	<header>

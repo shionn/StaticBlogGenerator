@@ -1,73 +1,77 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-<base th:href="${site.base}">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
-	integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls"
-	crossorigin="anonymous">
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no" />
+	<base th:href="${site.base}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
+		integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls"
+		crossorigin="anonymous">
 </head>
-<body>
+<body style="max-width: 1200px; margin: 0 auto;" >
+
 	<div class="pure-menu pure-menu-horizontal">
 		<ul class="pure-menu-list">
-			<li class="pure-menu-item" th:each="child : ${site.menu.childrens}">
-				<a th:href="${child.path}" th:text="${child.name}" th:target="${child.target}" class="pure-menu-link"></a>
-				<ul class="pure-menu-children">
-					<li th:each="child : ${child.childrens}" class="pure-menu-item">
-						<a th:href="${child.path}" th:text="${child.name}" th:target="${child.target}" class="pure-menu-link"></a>
-					</li>
-				</ul>
-			</li>
+			<th:block th:each="child : ${site.menu.childrens}">
+				<li th:attr="class=${child.childrens.size>0?'pure-menu-item pure-menu-has-children pure-menu-allow-hover':'pure-menu-item'}">
+					<a th:href="${child.path}" th:text="${child.name}" th:target="${child.target}" class="pure-menu-link"></a>
+					<ul class="pure-menu-children">
+						<li th:each="child : ${child.childrens}" class="pure-menu-item">
+							<a th:href="${child.path}" th:text="${child.name}" th:target="${child.target}" class="pure-menu-link"></a>
+						</li>
+					</ul>
+				</li>
+			</th:block>
 		</ul>
 	</div>
-	<div th:switch="${mode}">
-		<div th:case="'index'">
-			<th:block th:each="article : ${site.lastArticles}">
-				<article th:replace="~{article :: articleshort (${article})}"></article>
-			</th:block>
+
+	<div class="pure-g">
+		<div class="pure-u-1-5">
+			<div>
+				<h1 class="brand-title">Catégories</h1>
+				<a th:each="cat:${site.categories}" th:href="${cat.url}">
+					<th:block th:text="${cat.name}"/> (<th:block th:text="${cat.size}"/>)
+				</a>
+			</div>
+			<div>
+				<h1 class="brand-title">Tags</h1>
+				<a th:each="tag:${site.tags}" th:href="${tag.url}">
+					<th:block th:text="${tag.name}"/> (<th:block th:text="${tag.size}"/>)
+				</a>
+			</div>
 		</div>
-		<div th:case="'draft'">
-			<ul>
-				<li th:each="article : ${site.drafts}">
-					<a th:text="${article.title}" th:href="${article.url}"></a>
-				</li>
-			</ul>
-		</div>
-		<div th:case="'group'">
-			<th:block th:each="article : ${group.articles}">
-				<article th:replace="~{article :: articleshort (${article})}"></article>
-			</th:block>
-		</div>
-		<div th:case="'article'">
-			<article th:replace="~{article :: articlefull (${article})}"></article>
-		</div>
-		<div th:case="'404'">
-			<article th:replace="~{article :: 404}"></article>
+
+		<div class="pure-u-4-5" th:switch="${mode}">
+			<div th:case="'index'">
+				<th:block th:each="article : ${site.lastArticles}">
+					<article th:replace="~{article :: articleshort (${article})}"></article>
+				</th:block>
+			</div>
+			<div th:case="'draft'">
+				<ul>
+					<li th:each="article : ${site.drafts}">
+						<a th:text="${article.title}" th:href="${article.url}"></a>
+					</li>
+				</ul>
+			</div>
+			<div th:case="'group'">
+				<th:block th:each="article : ${group.articles}">
+					<article th:replace="~{article :: articleshort (${article})}"></article>
+				</th:block>
+			</div>
+			<div th:case="'article'">
+				<article th:replace="~{article :: articlefull (${article})}"></article>
+			</div>
+			<div th:case="'404'">
+				<article th:replace="~{article :: 404}"></article>
+			</div>
 		</div>
 	</div>
 
-	<div class="side">
-		<div>
-			Tags
-			<a th:each="tag:${site.tags}" th:href="${tag.url}">
-				<th:block th:text="${tag.name}"/> (<th:block th:text="${tag.size}"/>)
-			</a>
-		</div>
-		<div>
-			Catégories
-			<a th:each="cat:${site.categories}" th:href="${cat.url}">
-				<th:block th:text="${cat.name}"/> (<th:block th:text="${cat.size}"/>)
-			</a>
-		</div>
-	</div>
-
-
-	<footer class="footer">
+	<div>
 		Un footer a faire
-	</footer>
+	</div>
 	<th:block th:each="script : ${scripts}">
 		<script type="text/javascript" th:src="${script}"></script>
 	</th:block>

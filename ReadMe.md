@@ -1,4 +1,4 @@
-GEnerateur de site static en java utilisant thymeleaf
+Générateur de site static en java utilisant thymeleaf
 
 # Articles
 
@@ -19,7 +19,8 @@ metadata d'un article :
 	category: "Titre Categorie",
 	tags: [ "Titre tag 1", ... ],
 	js: [ liste fichier JS a ajouter à la page ], //optionnel (remplir scripts)
-	published: true // false pour draft
+	published: true, // false pour draft
+	author: "Mini moi"
 }
 ~~~
 
@@ -36,7 +37,10 @@ Structure de `site`
 - `article` tous les de types publié ou non
 	- `category` categorie de l'article
 		- `is(Category|Tag)`
-	- `tags` liste des tags de l'article (structure identique à `category`.
+		- `name`
+		- `url`
+		- `size`
+	- `tags` liste des tags de l'article (structure identique à `category`).
 	- `logo` image de l'entete de l'article
 	- `is(Post|Page)`
 	- `title`
@@ -46,17 +50,10 @@ Structure de `site`
 	- `formatedDate` au format en configuration
 	- `updateDate`
 	- `formatedUpdateDate` au format en configuration
-	- `author` pour l'instant une constante "shionn" à aajouter au metadata.
+	- `author`.
 
 - `lastArticles` renvoie les derniers articles `post` pour l'affichage de la page d'acceuil.
 - `drafts` renvoie les articles `post` non publié pour la génération de `draft.html`.
-
-## Home page
-Appel le rendu de `template.html` avec `mode=index` avec les objets `site` et `scripts`
-
-## Article page ou post
-Appel le rendu de `template.html` avec `mode=index` avec les objets `site` et `scripts`
-
 
 
 # Extenssion Common Mark :
@@ -119,3 +116,11 @@ rendu :
 </table>
 ~~~
 
+# Configuration
+
+TODO tous se passe dans `configuration.properties`
+
+# Exemples
+
+[L'exemple generé dans ce repo](https://shionn.github.io/StaticBlogGenerator/)
+[Mon Blog](https://shionn.github.io)

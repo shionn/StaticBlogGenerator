@@ -33,6 +33,7 @@ public class Metadata {
 	private List<String> js = new ArrayList<String>();
 	private boolean published = true;
 	private boolean logo = false;
+	private String author;
 
 	public int getYear() {
 		Calendar calendar = Calendar.getInstance();
