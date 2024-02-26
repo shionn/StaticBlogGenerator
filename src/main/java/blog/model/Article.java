@@ -94,6 +94,14 @@ public class Article {
 		return new SimpleDateFormat(configuration.getProperty("date.format"), Locale.FRANCE).format(getUpdateDate());
 	}
 
+	public int getYear() {
+		return metadata.getYear();
+	}
+
+	public int getMonth() {
+		return metadata.getMonth();
+	}
+
 	public String getAuthor() {
 		return metadata.getAuthor();
 	}
@@ -101,4 +109,5 @@ public class Article {
 	public List<String> getJs() {
 		return metadata.getJs();
 	}
+
 }

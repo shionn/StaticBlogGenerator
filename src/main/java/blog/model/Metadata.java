@@ -41,4 +41,10 @@ public class Metadata {
 		return calendar.get(Calendar.YEAR);
 	}
 
+	public int getMonth() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		return calendar.get(Calendar.MONTH);
+	}
+
 }
