@@ -14,8 +14,7 @@ metadata d'un article :
 	date: "yyyy/MM/dd",
 	updated: "yyyy/MM/dd", // optionnel
 	title: "Mon titre",
-	logo: false,
-	logoFolder: "dossier', // optionnel
+	logo: "fichier", // optionnel,
 	category: "Titre Categorie",
 	tags: [ "Titre tag 1", ... ],
 	js: [ liste fichier JS a ajouter à la page ], //optionnel (remplir scripts)
