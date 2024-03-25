@@ -16,7 +16,7 @@ public class Gallery implements FormaterDescription {
 
 	@Override
 	public NodeRenderer createNodeRenderer(HtmlNodeRendererContext context) {
-		return new GalleryRenderer(context);
+		return new GalleryRenderer(context, this);
 	}
 
 }

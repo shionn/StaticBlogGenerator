@@ -28,21 +28,24 @@ public class Generator {
 		Site site = new SiteBuilder().build();
 		prepareDestFolder(site);
 		TemplateEngine engine = new TemplateEngineBuilder().build();
-		engine.process("template", buildIndexContext(site), new FileWriter(site.getTargetFolder() + "/index.html"));
-		engine.process("template", build404Context(site), new FileWriter(site.getTargetFolder() + "/404.html"));
-		if (site.isDraftEnable()) {
-			engine.process("template", buildDraftContext(site), new FileWriter(site.getTargetFolder() + "/draft.html"));
+		engine.process("template", buildIndexContext(site),
+				new FileWriter(Configuration.get().getTargetFolder() + "/index.html"));
+		engine.process("template", build404Context(site),
+				new FileWriter(Configuration.get().getTargetFolder() + "/404.html"));
+		if (Configuration.get().isDraftEnable()) {
+			engine.process("template", buildDraftContext(site),
+					new FileWriter(Configuration.get().getTargetFolder() + "/draft.html"));
 		}
 		for (Article article : site.getArticles()) {
-			new File(site.getTargetFolder() + "/" + article.getFolder()).mkdirs();
+			new File(Configuration.get().getTargetFolder() + "/" + article.getFolder()).mkdirs();
 			System.out.println("generate " + article.getTitle() + " into " + article.getUrl());
 			engine.process("template", buildArticleContext(site, article),
-					new FileWriter(site.getTargetFolder() + "/" + article.getUrl()));
+					new FileWriter(Configuration.get().getTargetFolder() + "/" + article.getUrl()));
 		}
 		for (Group group : site.getGroups()) {
 			engine.process("template",
 					buildGroupContext(site, group),
-					new FileWriter(site.getTargetFolder() + "/" + group.getUrl()));
+					new FileWriter(Configuration.get().getTargetFolder() + "/" + group.getUrl()));
 		}
 	}
 
@@ -85,15 +88,15 @@ public class Generator {
 
 	private void prepareDestFolder(Site site) throws IOException {
 
-		new File(site.getTargetFolder()).mkdir();
-		if (site.isCategopryEnable()) {
-			new File(site.getCategoryFolder()).mkdir();
+		new File(Configuration.get().getTargetFolder()).mkdir();
+		if (Configuration.get().isCategopryEnable()) {
+			new File(Configuration.get().getCategoryFolder()).mkdir();
 		}
-		if (site.isTagEnable()) {
-			new File(site.getTagFolder()).mkdir();
+		if (Configuration.get().isTagEnable()) {
+			new File(Configuration.get().getTagFolder()).mkdir();
 		}
-		if (site.isDraftEnable()) {
-			File folder = new File(site.getDraftFolder());
+		if (Configuration.get().isDraftEnable()) {
+			File folder = new File(Configuration.get().getDraftFolder());
 			folder.mkdir();
 			Arrays.stream(folder.listFiles()).forEach(f -> f.delete());
 		}

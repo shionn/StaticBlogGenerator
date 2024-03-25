@@ -12,12 +12,14 @@ import org.commonmark.renderer.NodeRenderer;
 import org.commonmark.renderer.html.HtmlNodeRendererContext;
 import org.commonmark.renderer.html.HtmlWriter;
 
+import blog.model.formater.Gallery;
+
 public class GalleryRenderer implements NodeRenderer {
 
 	private HtmlNodeRendererContext context;
 	private HtmlWriter writer;
 
-	public GalleryRenderer(HtmlNodeRendererContext context) {
+	public GalleryRenderer(HtmlNodeRendererContext context, Gallery gallery) {
 		this.context = context;
 		this.writer = context.getWriter();
 	}
@@ -44,16 +46,16 @@ public class GalleryRenderer implements NodeRenderer {
 
 	private Map<String, String> buildImgAttrs(String[] img, GalleryBlock gallery) {
 		Map<String, String> attrs = new HashMap<String, String>();
-		attrs.put("src", url(img));
-		if (gallery.getW() > 0) {
+		String url = url(img);
+		if (gallery.getW() > 0 && gallery.getH() > 0) {
 			attrs.put("width", Integer.toString(gallery.getW()));
-		}
-		if (gallery.getH() > 0) {
 			attrs.put("height", Integer.toString(gallery.getH()));
+			url = new GalleryThumbnail(gallery.getW(), gallery.getH()).create(url);
 		}
 		if (img.length > 1) {
 			attrs.put("style", "object-position: " + img[1]);
 		}
+		attrs.put("src", url);
 		return attrs;
 	}
 

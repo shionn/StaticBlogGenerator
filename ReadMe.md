@@ -59,6 +59,8 @@ Structure de `site`
 
 ## gallery
 
+Cette extenssion à besoin qu'imagemagick soit installé sur votre system. 
+
 exemple :
 
 ~~~

@@ -44,7 +44,7 @@ public class SiteBuilder {
 			}
 			articles.add(article);
 		}
-		return new Site(configuration, articles, groups.values(), new MenuBuilder().build());
+		return new Site(articles, groups.values(), new MenuBuilder().build());
 	}
 
 	private Group retreiveGroup(Map<String, Group> groups, String key, Type type, Properties configuration) {

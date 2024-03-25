@@ -69,6 +69,12 @@
 			<version>1.18.28</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<!-- utilisé pour la creation des thumbnails necessite imagemagick -->
+			<groupId>org.im4java</groupId>
+			<artifactId>im4java</artifactId>
+			<version>1.4.0</version>
+		</dependency>
 	</dependencies>
 
 </project>

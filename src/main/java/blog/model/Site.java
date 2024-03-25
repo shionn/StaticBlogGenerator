@@ -5,10 +5,10 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Properties;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import blog.generator.Configuration;
 import blog.model.Metadata.Type;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +16,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Site {
-	private Properties configuration;
 	private List<Article> articles;
 	private Collection<Group> groups;
 	private Menu menu;
@@ -92,35 +91,7 @@ public class Site {
 	}
 
 	public String getBase() {
-		return configuration.getProperty("base");
-	}
-
-	public String getTargetFolder() {
-		return configuration.getProperty("target");
-	}
-
-	public boolean isCategopryEnable() {
-		return Boolean.parseBoolean(configuration.getProperty("category.enable"));
-	}
-
-	public String getCategoryFolder() {
-		return getTargetFolder() + "/" + configuration.getProperty("category.subfolder");
-	}
-
-	public boolean isTagEnable() {
-		return Boolean.parseBoolean(configuration.getProperty("tag.enable"));
-	}
-
-	public String getTagFolder() {
-		return getTargetFolder() + "/" + configuration.getProperty("tag.subfolder");
-	}
-
-	public boolean isDraftEnable() {
-		return Boolean.parseBoolean(configuration.getProperty("draft.enable"));
-	}
-
-	public String getDraftFolder() {
-		return getTargetFolder() + "/" + configuration.getProperty("draft.subfolder");
+		return Configuration.get().getBase();
 	}
 
 }
