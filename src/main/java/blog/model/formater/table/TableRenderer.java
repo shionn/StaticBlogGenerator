@@ -38,17 +38,39 @@ public class TableRenderer implements NodeRenderer {
 	}
 
 	private void tbody(TableBlock node) {
-		writer.tag("tbody");
-		node.getDatas().forEach(datas -> {
-			writer.tag("tr");
-			Arrays.stream(datas).forEach(data -> {
-				writer.tag("td");
-				writer.text(data);
-				writer.tag("/td");
-			});
-			writer.tag("/tr");
-		});
-		writer.tag("/tbody");
+		boolean body = false;
+		for (String[] datas : node.getDatas()) {
+			if (datas.length == 1) {
+				if (body) {
+					writer.tag("/tbody");
+					writer.tag("thead");
+					body = false;
+				}
+				writer.tag("tr");
+				writer.tag("th", Collections.singletonMap("colspan", Integer.toString(node.getCols().length)));
+				writer.text(datas[0]);
+				writer.tag("/th");
+				writer.tag("/tr");
+			} else {
+				if (!body) {
+					writer.tag("/thead");
+					writer.tag("tbody");
+					body = true;
+				}
+				writer.tag("tr");
+				Arrays.stream(datas).forEach(data -> {
+					writer.tag("td");
+					writer.text(data);
+					writer.tag("/td");
+				});
+				writer.tag("/tr");
+			}
+		}
+		if (body) {
+			writer.tag("/tbody");
+		} else {
+			writer.tag("/thead");
+		}
 	}
 
 	private void thead(TableBlock node) {
@@ -65,7 +87,6 @@ public class TableRenderer implements NodeRenderer {
 			writer.tag("/th");
 		});
 		writer.tag("/tr");
-		writer.tag("/thead");
 	}
 
 	private Map<String, String> buildTableAttr(TableBlock node) {
