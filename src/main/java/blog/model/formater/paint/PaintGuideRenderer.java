@@ -61,9 +61,9 @@ public class PaintGuideRenderer implements NodeRenderer {
 		writer.tag("tr");
 		th("Etape");
 		th("Vallejo");
-		th("Eq Citadel");
-		th("Eq AP");
-		th("Eq GSW");
+		th("Citadel");
+		th("AP");
+		th("GSW");
 		writer.tag("/tr");
 		writer.tag("/thead");
 	}

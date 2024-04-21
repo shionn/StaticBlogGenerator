@@ -47,6 +47,7 @@ public class Generator {
 					buildGroupContext(site, group),
 					new FileWriter(Configuration.get().getTargetFolder() + "/" + group.getUrl()));
 		}
+		System.out.println("Genaration done for " + site.getBase());
 	}
 
 	private Context buildIndexContext(Site site) {
