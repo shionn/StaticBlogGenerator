@@ -75,6 +75,7 @@ public class Site {
 						List<Article> subArticles = articles.stream()
 								.filter(filter)
 								.filter(a -> a.getYear() == year && a.getMonth() == month)
+								.sorted((a, b) -> b.getDate().compareTo(a.getDate()))
 								.toList();
 						return ArticleTree.builder()
 								.name(new SimpleDateFormat("MMMM", Locale.FRANCE).format(subArticles.get(0).getDate()))
