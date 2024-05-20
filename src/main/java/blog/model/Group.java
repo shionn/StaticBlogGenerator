@@ -52,6 +52,6 @@ public class Group {
 	}
 
 	public List<String> getJs() {
-		return articles.stream().flatMap(a -> a.getJs().stream()).distinct().collect(Collectors.toList());
+		return articles.stream().flatMap(a -> a.getJs().stream()).distinct().sorted().collect(Collectors.toList());
 	}
 }
