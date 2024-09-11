@@ -23,7 +23,7 @@ public class Site {
 	public List<Article> getLastArticles() {
 		return articles.stream()
 				.filter(a -> a.is(Type.post))
-				.sorted((a, b) -> -a.getDate().compareTo(b.getDate()))
+				.sorted(new ArticleComparator())
 				.filter(Article::isPublished)
 				.limit(5)
 				.collect(Collectors.toList());
@@ -31,7 +31,7 @@ public class Site {
 
 	public List<Article> getDrafts() {
 		return articles.stream()
-				.sorted((a, b) -> -a.getDate().compareTo(b.getDate()))
+				.sorted(new ArticleComparator())
 				.filter(a -> !a.isPublished())
 				.collect(Collectors.toList());
 	}
@@ -55,7 +55,7 @@ public class Site {
 	public Collection<Article> getPosts() {
 		return articles.stream()
 				.filter(a -> a.is(Type.post))
-				.sorted((a, b) -> -a.getDate().compareTo(b.getDate()))
+				.sorted(new ArticleComparator())
 				.filter(Article::isPublished)
 				.collect(Collectors.toList());
 	}

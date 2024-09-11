@@ -46,7 +46,7 @@ public class Group {
 
 	public List<Article> getArticles() {
 		return articles.stream()
-				.sorted((a, b) -> -a.getDate().compareTo(b.getDate()))
+				.sorted(new ArticleComparator())
 				.filter(Article::isPublished)
 				.collect(Collectors.toList());
 	}
