@@ -52,7 +52,7 @@ public class Article {
 	}
 
 	public String getFolder() {
-		if (metadata.isPublished()) {
+		if (isPublished()) {
 			return metadata.getYear() + "/";
 		}
 		return "draft/";
