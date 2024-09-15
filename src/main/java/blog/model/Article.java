@@ -43,6 +43,10 @@ public class Article {
 		return metadata.isPublished() && metadata.getDate().before(new Date());
 	}
 
+	public boolean isAutoPublished() {
+		return metadata.isPublished() && metadata.getDate().after(new Date());
+	}
+
 	public String getTitle() {
 		return metadata.getTitle();
 	}
