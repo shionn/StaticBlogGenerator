@@ -37,6 +37,7 @@ public class GalleryThumbnail {
 			} catch (IOException | InterruptedException | IM4JavaException e) {
 				// peut etre qu'il manque imagemagic
 				System.out.println("can not generate " + targetUrl);
+				System.out.println("manque imagemagic ?");
 				System.err.println(e);
 				targetUrl = url;
 			}

@@ -40,7 +40,7 @@ public class Article {
 	}
 
 	public boolean isPublished() {
-		return metadata.isPublished();
+		return metadata.isPublished() && metadata.getDate().before(new Date());
 	}
 
 	public String getTitle() {
