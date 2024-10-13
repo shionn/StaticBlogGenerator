@@ -1,6 +1,7 @@
 package blog.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import lombok.Getter;
@@ -13,6 +14,7 @@ public class Menu {
 	private final String name;
 	private final String path;
 	private final Menu parent;
+	private final java.util.Date date;
 	private List<Menu> childrens = new ArrayList<Menu>();
 
 	@Override
@@ -43,4 +45,7 @@ public class Menu {
 		this.childrens.add(child);
 	}
 
+	public boolean isVisible() {
+		return date == null || date.before(new Date());
+	}
 }
