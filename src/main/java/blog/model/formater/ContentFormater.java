@@ -25,7 +25,9 @@ public class ContentFormater {
 	private List<FormaterDescription> extenssion = Arrays.asList(
 			new Gallery(), 
 			new Paint(),
-			new Table() 
+			new Table(),
+			new Youtube()
+
 			);
 
 	public String shortPost(String content, int limit) {
