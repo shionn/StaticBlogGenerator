@@ -66,4 +66,8 @@ public class Configuration {
 		return Boolean.parseBoolean(props.getProperty("gallery.forcethumbnail"));
 	}
 
+	public long getPageSize() {
+		return Long.parseLong(props.getProperty("page.size"));
+	}
+
 }

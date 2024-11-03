@@ -21,11 +21,22 @@ public class Site {
 	private Menu menu;
 
 	public List<Article> getLastArticles() {
+		return getHomePageArticles(0);
+	}
+
+	public long getHomePageCount() {
+		long count = articles.stream().filter(a -> a.is(Type.post)).filter(Article::isPublished).count();
+		long size = Configuration.get().getPageSize();
+		return count / size + (count % size == 0 ? -1 : 0);
+	}
+
+	public List<Article> getHomePageArticles(int page) {
 		return articles.stream()
 				.filter(a -> a.is(Type.post))
 				.sorted(new ArticleComparator())
 				.filter(Article::isPublished)
-				.limit(5)
+				.skip(Configuration.get().getPageSize() * page)
+				.limit(Configuration.get().getPageSize())
 				.collect(Collectors.toList());
 	}
 

@@ -28,8 +28,12 @@ public class Generator {
 		Site site = new SiteBuilder().build();
 		prepareDestFolder(site);
 		TemplateEngine engine = new TemplateEngineBuilder().build();
-		engine.process("template", buildIndexContext(site),
+		engine.process("template", buildIndexContext(site, 0),
 				new FileWriter(Configuration.get().getTargetFolder() + "/index.html"));
+		for (int page = 1; page <= site.getHomePageCount(); page++) {
+			engine.process("template", buildIndexContext(site, page),
+					new FileWriter(Configuration.get().getTargetFolder() + "/index-" + page + ".html"));
+		}
 		engine.process("template", build404Context(site),
 				new FileWriter(Configuration.get().getTargetFolder() + "/404.html"));
 		if (Configuration.get().isDraftEnable()) {
@@ -50,9 +54,10 @@ public class Generator {
 		System.out.println("Genaration done for " + site.getBase());
 	}
 
-	private Context buildIndexContext(Site site) {
+	private Context buildIndexContext(Site site, int page) {
 		Map<String, Object> params = buildParam(site, "index");
 		params.put("scripts", site.getJs());
+		params.put("page", page);
 		return new Context(Locale.FRANCE, params);
 	}
 
