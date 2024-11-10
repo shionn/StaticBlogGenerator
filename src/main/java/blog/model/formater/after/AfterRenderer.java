@@ -24,7 +24,9 @@ public class AfterRenderer implements NodeRenderer {
 
 	@Override
 	public void render(Node node) {
-		context.render(node.getNext());
+		context.getWriter().text("render");
+//		context.render(node.getLastChild());
+//		context.render(node.getFirstChild());
 	}
 
 }
