@@ -1,4 +1,4 @@
-package blog.model.formater.table;
+package blog.model.formater.after;
 
 import java.util.List;
 
@@ -16,38 +16,36 @@ import org.commonmark.parser.block.ParserState;
 
 import blog.model.formater.helper.ParseStateReader;
 
-public class TableBlockParser implements BlockParser {
+public class AfterBlockParser implements BlockParser {
 
-	private static final String TAG = "table";
+	private static final String TAG = "after";
 
 	public static class Factory implements BlockParserFactory {
 		@Override
 		public BlockStart tryStart(ParserState state, MatchedBlockParser matchedBlockParser) {
 			if (new ParseStateReader(state).startTag(TAG)) {
-				String type = new ParseStateReader(state).getAttr("class");
-				String title = new ParseStateReader(state).getAttr("title");
-				String[] cols = new ParseStateReader(state).getAttr("cols").split(",");
-				return BlockStart.of(new TableBlockParser(type, title, cols)).atIndex(state.getIndent());
+				String article = new ParseStateReader(state).getAttr("article");
+				return BlockStart.of(new AfterBlockParser(article)).atIndex(state.getIndent());
 			}
 			return BlockStart.none();
 		}
 
 	}
 
-	private TableBlock block;
+	private AfterBlock block;
 
-	public TableBlockParser(String type, String title, String[] cols) {
-		this.block = new TableBlock(type, title, cols);
+	public AfterBlockParser(String article) {
+		this.block = new AfterBlock(article);
 	}
 
 	@Override
 	public boolean isContainer() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean canContain(Block block) {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -66,10 +64,11 @@ public class TableBlockParser implements BlockParser {
 	@Override
 	public void addLine(SourceLine line) {
 		if (!line.getContent().toString().contains(TAG)) {
-			block.addData(line.getContent().toString().split("\t"));
+//			block.addImage(line.toString());
 		}
 	}
 
+	@Override
 	public void closeBlock() {
 	}
 
@@ -79,13 +78,11 @@ public class TableBlockParser implements BlockParser {
 
 	@Override
 	public boolean canHaveLazyContinuationLines() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void addSourceSpan(SourceSpan sourceSpan) {
-		// TODO Auto-generated method stub
 
 	}
 

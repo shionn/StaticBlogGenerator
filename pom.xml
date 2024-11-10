@@ -54,9 +54,12 @@
 			<version>3.1.1.RELEASE</version>
 		</dependency>
 		<dependency>
-			<groupId>com.atlassian.commonmark</groupId>
+<!--			<groupId>com.atlassian.commonmark</groupId>-->
+<!--			<artifactId>commonmark</artifactId>-->
+<!--			<version>0.7.1</version>-->
+			<groupId>org.commonmark</groupId>
 			<artifactId>commonmark</artifactId>
-			<version>0.7.1</version>
+			<version>0.24.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>

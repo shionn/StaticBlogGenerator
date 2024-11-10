@@ -1,16 +1,20 @@
 package blog.model.formater.youtube;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
 
 import org.commonmark.node.Block;
+import org.commonmark.node.DefinitionMap;
+import org.commonmark.node.SourceSpan;
 import org.commonmark.parser.InlineParser;
+import org.commonmark.parser.SourceLine;
 import org.commonmark.parser.block.BlockContinue;
 import org.commonmark.parser.block.BlockParser;
 import org.commonmark.parser.block.BlockParserFactory;
 import org.commonmark.parser.block.BlockStart;
 import org.commonmark.parser.block.MatchedBlockParser;
 import org.commonmark.parser.block.ParserState;
+
+import blog.model.formater.helper.ParseStateReader;
 
 public class YoutubeBlockParser implements BlockParser {
 
@@ -19,20 +23,13 @@ public class YoutubeBlockParser implements BlockParser {
 	public static class Factory implements BlockParserFactory {
 		@Override
 		public BlockStart tryStart(ParserState state, MatchedBlockParser matchedBlockParser) {
-			if (state.getLine().toString().startsWith("[" + TAG)) {
-				String video = getAttr("video", state);
+			if (new ParseStateReader(state).startTag(TAG)) {
+				String video = new ParseStateReader(state).getAttr("video");
 				return BlockStart.of(new YoutubeBlockParser(video)).atIndex(state.getIndent());
 			}
 			return BlockStart.none();
 		}
 
-		private String getAttr(String attr, ParserState state) {
-			Matcher m = Pattern.compile(attr + "=\"([^\"]+)\"").matcher(state.getLine());
-			if (m.find()) {
-				return m.group(1);
-			}
-			return "";
-		}
 	}
 
 	private YoutubeBlock block;
@@ -62,7 +59,7 @@ public class YoutubeBlockParser implements BlockParser {
 	}
 
 	@Override
-	public void addLine(CharSequence line) {
+	public void addLine(SourceLine line) {
 	}
 
 	public void closeBlock() {
@@ -70,6 +67,21 @@ public class YoutubeBlockParser implements BlockParser {
 
 	@Override
 	public void parseInlines(InlineParser inlineParser) {
+	}
+
+	@Override
+	public boolean canHaveLazyContinuationLines() {
+		return false;
+	}
+
+	@Override
+	public void addSourceSpan(SourceSpan sourceSpan) {
+
+	}
+
+	@Override
+	public List<DefinitionMap<?>> getDefinitions() {
+		return List.of();
 	}
 
 }

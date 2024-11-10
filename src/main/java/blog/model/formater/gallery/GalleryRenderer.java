@@ -12,14 +12,12 @@ import org.commonmark.renderer.NodeRenderer;
 import org.commonmark.renderer.html.HtmlNodeRendererContext;
 import org.commonmark.renderer.html.HtmlWriter;
 
-import blog.model.formater.Gallery;
-
 public class GalleryRenderer implements NodeRenderer {
 
 	private HtmlNodeRendererContext context;
 	private HtmlWriter writer;
 
-	public GalleryRenderer(HtmlNodeRendererContext context, Gallery gallery) {
+	public GalleryRenderer(HtmlNodeRendererContext context) {
 		this.context = context;
 		this.writer = context.getWriter();
 	}
@@ -33,7 +31,7 @@ public class GalleryRenderer implements NodeRenderer {
 
 	@Override
 	public void render(Node node) {
-		writer.tag("div", context.extendAttributes(node, Collections.singletonMap("class", "gallery")));
+		writer.tag("div", context.extendAttributes(node, "truc ? ", Collections.singletonMap("class", "gallery")));
 		for (String imgStr : gallery(node).getImgs()) {
 			String[] img = Pattern.compile("\t").split(imgStr);
 

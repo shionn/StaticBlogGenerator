@@ -1,16 +1,20 @@
 package blog.model.formater.paint;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
 
 import org.commonmark.node.Block;
+import org.commonmark.node.DefinitionMap;
+import org.commonmark.node.SourceSpan;
 import org.commonmark.parser.InlineParser;
+import org.commonmark.parser.SourceLine;
 import org.commonmark.parser.block.BlockContinue;
 import org.commonmark.parser.block.BlockParser;
 import org.commonmark.parser.block.BlockParserFactory;
 import org.commonmark.parser.block.BlockStart;
 import org.commonmark.parser.block.MatchedBlockParser;
 import org.commonmark.parser.block.ParserState;
+
+import blog.model.formater.helper.ParseStateReader;
 
 public class PaintGuideParser implements BlockParser {
 	private static final String TAG = "paints";
@@ -19,10 +23,11 @@ public class PaintGuideParser implements BlockParser {
 
 		@Override
 		public BlockStart tryStart(ParserState state, MatchedBlockParser matchedBlockParser) {
-			if (state.getLine().toString().startsWith("[" + TAG)) {
+			if (new ParseStateReader(state).startTag(TAG)) {
 				return BlockStart.of(new PaintGuideParser(
-						getAttr("title", state), getAttr("icon", state),
-						getAttr("link", state)
+						new ParseStateReader(state).getAttr("title"),
+						new ParseStateReader(state).getAttr("icon"),
+						new ParseStateReader(state).getAttr("link")
 						))
 						.atIndex(state.getIndent());
 
@@ -30,13 +35,6 @@ public class PaintGuideParser implements BlockParser {
 			return null;
 		}
 
-		private String getAttr(String attr, ParserState state) {
-			Matcher m = Pattern.compile(attr + "=\"([^\"]+)\"").matcher(state.getLine());
-			if (m.find()) {
-				return m.group(1);
-			}
-			return "";
-		}
 
 	}
 
@@ -63,16 +61,16 @@ public class PaintGuideParser implements BlockParser {
 
 	@Override
 	public BlockContinue tryContinue(ParserState parserState) {
-		if (("[/" + TAG + "]").equals(parserState.getLine().toString())) {
+		if (new ParseStateReader(parserState).endTag(TAG)) {
 			return BlockContinue.finished();
 		}
 		return BlockContinue.atIndex(parserState.getIndex());
 	}
 
 	@Override
-	public void addLine(CharSequence line) {
-		if (!line.toString().contains(TAG)) {
-			block.addLine(line.toString());
+	public void addLine(SourceLine line) {
+		if (!line.getContent().toString().contains(TAG)) {
+			block.addLine(line.getContent().toString());
 		}
 
 	}
@@ -83,6 +81,23 @@ public class PaintGuideParser implements BlockParser {
 
 	@Override
 	public void parseInlines(InlineParser inlineParser) {
+	}
+
+	@Override
+	public boolean canHaveLazyContinuationLines() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void addSourceSpan(SourceSpan sourceSpan) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<DefinitionMap<?>> getDefinitions() {
+		return List.of();
 	}
 
 }

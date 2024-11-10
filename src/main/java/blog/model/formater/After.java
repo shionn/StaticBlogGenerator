@@ -4,19 +4,19 @@ import org.commonmark.parser.block.BlockParserFactory;
 import org.commonmark.renderer.NodeRenderer;
 import org.commonmark.renderer.html.HtmlNodeRendererContext;
 
-import blog.model.formater.gallery.GalleryBlockParser;
-import blog.model.formater.gallery.GalleryRenderer;
+import blog.model.formater.after.AfterBlockParser;
+import blog.model.formater.after.AfterRenderer;
 
-public class Gallery implements FormaterDescription {
+public class After implements FormaterDescription {
 
 	@Override
 	public BlockParserFactory blockParserFactory() {
-		return new GalleryBlockParser.Factory();
+		return new AfterBlockParser.Factory();
 	}
 
 	@Override
 	public NodeRenderer createNodeRenderer(HtmlNodeRendererContext context) {
-		return new GalleryRenderer(context);
+		return new AfterRenderer(context);
 	}
 
 }

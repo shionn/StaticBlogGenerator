@@ -1,16 +1,20 @@
 package blog.model.formater.gallery;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
 
 import org.commonmark.node.Block;
+import org.commonmark.node.DefinitionMap;
+import org.commonmark.node.SourceSpan;
 import org.commonmark.parser.InlineParser;
+import org.commonmark.parser.SourceLine;
 import org.commonmark.parser.block.BlockContinue;
 import org.commonmark.parser.block.BlockParser;
 import org.commonmark.parser.block.BlockParserFactory;
 import org.commonmark.parser.block.BlockStart;
 import org.commonmark.parser.block.MatchedBlockParser;
 import org.commonmark.parser.block.ParserState;
+
+import blog.model.formater.helper.ParseStateReader;
 
 public class GalleryBlockParser implements BlockParser {
 
@@ -19,29 +23,14 @@ public class GalleryBlockParser implements BlockParser {
 	public static class Factory implements BlockParserFactory {
 		@Override
 		public BlockStart tryStart(ParserState state, MatchedBlockParser matchedBlockParser) {
-			if (state.getLine().toString().startsWith("[" + TAG)) {
-				int w = getWidth(state.getLine());
-				int h = getHeight(state.getLine());
+			if (new ParseStateReader(state).startTag(TAG)) {
+				int w = new ParseStateReader(state).getAttrInt("w");
+				int h = new ParseStateReader(state).getAttrInt("h");
 				return BlockStart.of(new GalleryBlockParser(w, h)).atIndex(state.getIndent());
 			}
 			return BlockStart.none();
 		}
 
-		private int getWidth(CharSequence line) {
-			Matcher m = Pattern.compile("w=(\\d+)").matcher( line);
-			if (m.find()) {
-				return Integer.parseInt(m.group(1));
-			}
-			return 0;
-		}
-
-		private int getHeight(CharSequence line) {
-			Matcher m = Pattern.compile("h=(\\d+)").matcher(line);
-			if (m.find()) {
-				return Integer.parseInt(m.group(1));
-			}
-			return 0;
-		}
 	}
 
 	private GalleryBlock block;
@@ -67,24 +56,40 @@ public class GalleryBlockParser implements BlockParser {
 
 	@Override
 	public BlockContinue tryContinue(ParserState parserState) {
-		if (("[/" + TAG + "]").equals(parserState.getLine().toString())) {
+		if (new ParseStateReader(parserState).endTag(TAG)) {
 			return BlockContinue.finished();
 		}
 		return BlockContinue.atIndex(parserState.getIndex());
 	}
 
 	@Override
-	public void addLine(CharSequence line) {
-		if (!line.toString().contains(TAG)) {
-			block.addImage(line.toString());
-		}
-	}
-
 	public void closeBlock() {
 	}
 
 	@Override
 	public void parseInlines(InlineParser inlineParser) {
+	}
+
+	@Override
+	public boolean canHaveLazyContinuationLines() {
+		return false;
+	}
+
+	@Override
+	public void addLine(SourceLine line) {
+		if (!line.getContent().toString().contains(TAG)) {
+			block.addImage(line.getContent().toString());
+		}
+	}
+
+	@Override
+	public void addSourceSpan(SourceSpan sourceSpan) {
+
+	}
+
+	@Override
+	public List<DefinitionMap<?>> getDefinitions() {
+		return List.of();
 	}
 
 }

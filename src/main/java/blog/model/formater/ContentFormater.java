@@ -27,6 +27,7 @@ public class ContentFormater {
 			new Paint(),
 			new Table(),
 			new Youtube()
+//			new After()
 
 			);
 
@@ -91,7 +92,7 @@ public class ContentFormater {
 			public AttributeProvider create(AttributeProviderContext context) {
 				return new AttributeProvider() {
 					@Override
-					public void setAttributes(Node node, Map<String, String> attributes) {
+					public void setAttributes(Node node, String machin, Map<String, String> attributes) {
 						if (node instanceof FencedCodeBlock) {
 							String type = ((FencedCodeBlock) node).getInfo();
 							if (StringUtils.isBlank(type)) {
