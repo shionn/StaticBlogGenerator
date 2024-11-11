@@ -1,4 +1,4 @@
-package blog.template.formater;
+package blog.template.formater.helper;
 
 import java.util.HashMap;
 import java.util.Map;

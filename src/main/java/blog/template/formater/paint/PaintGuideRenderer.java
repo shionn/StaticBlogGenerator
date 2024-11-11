@@ -9,7 +9,7 @@ import org.commonmark.renderer.NodeRenderer;
 import org.commonmark.renderer.html.HtmlNodeRendererContext;
 import org.commonmark.renderer.html.HtmlWriter;
 
-import blog.template.formater.Attributes;
+import blog.template.formater.helper.Attributes;
 
 public class PaintGuideRenderer implements NodeRenderer {
 
