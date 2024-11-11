@@ -12,7 +12,7 @@ import java.util.Properties;
 import org.apache.commons.io.FileUtils;
 
 import blog.model.Metadata.Type;
-import blog.model.formater.ContentFormater;
+import blog.templete.formater.ContentFormater;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
