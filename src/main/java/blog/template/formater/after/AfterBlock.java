@@ -1,20 +1,24 @@
 package blog.template.formater.after;
 
+import java.util.Date;
+
 import org.commonmark.node.Block;
 import org.commonmark.node.Visitor;
 
 public class AfterBlock extends Block {
 
-	private String article;
+	private Date date;
 
-	public AfterBlock(String article) {
-		this.article = article;
+	public AfterBlock(Date date) {
+		this.date = date;
 	}
 
 	@Override
 	public void accept(Visitor visitor) {
+	}
 
-		System.out.println("accept");
+	public boolean isDisplay() {
+		return new Date().after(date);
 	}
 
 }

@@ -8,6 +8,7 @@ import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 
+import blog.template.formater.after.AfterExtension;
 import blog.template.formater.code.CodeDefaultLangageExtension;
 import blog.template.formater.gallery.GalleryExtension;
 import blog.template.formater.homepage.NodeLimiter;
@@ -20,6 +21,7 @@ import blog.template.formater.youtube.YoutubeExtension;
 public class ContentFormater {
 
 	private static final List<Extension> EXTENSION = Arrays.asList( //
+			new AfterExtension(),
 			new CodeDefaultLangageExtension(),
 			new GalleryExtension(),
 			new ImageExtension(),

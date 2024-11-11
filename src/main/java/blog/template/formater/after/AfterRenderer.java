@@ -24,9 +24,14 @@ public class AfterRenderer implements NodeRenderer {
 
 	@Override
 	public void render(Node node) {
-		context.getWriter().text("render");
-//		context.render(node.getLastChild());
-//		context.render(node.getFirstChild());
+		if (((AfterBlock) node).isDisplay()) {
+			context.render(node.getFirstChild());
+			Node next = node.getFirstChild().getNext();
+			while (next != null) {
+				context.render(next);
+				next = next.getNext();
+			}
+		}
 	}
 
 }
