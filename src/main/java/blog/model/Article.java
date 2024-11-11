@@ -84,7 +84,14 @@ public class Article {
 	}
 
 	public Date getUpdateDate() {
-		return metadata.getUpdated();
+		if (metadata.getUpdated() == null) {
+			return null;
+		}
+		return metadata.getUpdated()
+				.stream()
+				.filter(date -> date.before(new Date()))
+				.max((a, b) -> a.compareTo(b))
+				.orElse(null);
 	}
 
 	public String getFormatedDate() {

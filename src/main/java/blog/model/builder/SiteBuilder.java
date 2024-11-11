@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +31,7 @@ public class SiteBuilder {
 		List<Article> articles = new ArrayList<Article>();
 		for (File file : FileUtils.listFiles(new File("content"), new SuffixFileFilter("json"),
 				TrueFileFilter.INSTANCE)) {
+			System.out.println("Read " + file);
 			Metadata metadata = new ObjectMapper().readValue(file, Metadata.class);
 			List<Group> tags = metadata.getTags()
 					.stream()
