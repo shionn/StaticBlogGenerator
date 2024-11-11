@@ -1,4 +1,4 @@
-package blog.templete.formater.gallery;
+package blog.template.formater.gallery;
 
 import java.util.Collections;
 import java.util.HashMap;

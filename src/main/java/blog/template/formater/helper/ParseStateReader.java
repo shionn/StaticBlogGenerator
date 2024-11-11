@@ -1,4 +1,4 @@
-package blog.templete.formater.helper;
+package blog.template.formater.helper;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

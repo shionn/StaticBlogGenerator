@@ -1,4 +1,4 @@
-package blog.templete.formater;
+package blog.template.formater;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,10 +17,10 @@ import org.commonmark.renderer.html.AttributeProviderContext;
 import org.commonmark.renderer.html.AttributeProviderFactory;
 import org.commonmark.renderer.html.HtmlRenderer;
 
-import blog.templete.formater.gallery.GalleryExtension;
-import blog.templete.formater.paint.PaintExtension;
-import blog.templete.formater.table.TableExtension;
-import blog.templete.formater.youtube.YoutubeExtension;
+import blog.template.formater.gallery.GalleryExtension;
+import blog.template.formater.paint.PaintExtension;
+import blog.template.formater.table.TableExtension;
+import blog.template.formater.youtube.YoutubeExtension;
 
 public class ContentFormater {
 

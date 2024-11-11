@@ -1,4 +1,4 @@
-package blog.templete.formater.paint;
+package blog.template.formater.paint;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -9,7 +9,7 @@ import org.commonmark.renderer.NodeRenderer;
 import org.commonmark.renderer.html.HtmlNodeRendererContext;
 import org.commonmark.renderer.html.HtmlWriter;
 
-import blog.templete.formater.Attributes;
+import blog.template.formater.Attributes;
 
 public class PaintGuideRenderer implements NodeRenderer {
 

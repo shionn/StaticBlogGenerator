@@ -1,4 +1,4 @@
-package blog.templete.formater.paint;
+package blog.template.formater.paint;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import org.commonmark.parser.block.BlockStart;
 import org.commonmark.parser.block.MatchedBlockParser;
 import org.commonmark.parser.block.ParserState;
 
-import blog.templete.formater.helper.ParseStateReader;
+import blog.template.formater.helper.ParseStateReader;
 
 public class PaintGuideParser implements BlockParser {
 	private static final String TAG = "paints";

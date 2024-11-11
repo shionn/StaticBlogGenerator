@@ -1,4 +1,4 @@
-package blog.templete.formater.after;
+package blog.template.formater.after;
 
 import org.commonmark.node.Block;
 import org.commonmark.node.Visitor;

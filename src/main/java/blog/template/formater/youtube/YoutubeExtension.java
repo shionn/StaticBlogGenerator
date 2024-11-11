@@ -1,4 +1,4 @@
-package blog.templete.formater.after;
+package blog.template.formater.youtube;
 
 import org.commonmark.parser.Parser.ParserExtension;
 import org.commonmark.renderer.NodeRenderer;
@@ -7,11 +7,11 @@ import org.commonmark.renderer.html.HtmlNodeRendererFactory;
 import org.commonmark.renderer.html.HtmlRenderer;
 import org.commonmark.renderer.html.HtmlRenderer.HtmlRendererExtension;
 
-public class AfterExtension implements ParserExtension, HtmlRendererExtension {
+public class YoutubeExtension implements ParserExtension, HtmlRendererExtension {
 
 	@Override
 	public void extend(org.commonmark.parser.Parser.Builder builder) {
-		builder.customBlockParserFactory(new AfterBlockParser.Factory());
+		builder.customBlockParserFactory(new YoutubeBlockParser.Factory());
 	}
 
 	@Override
@@ -19,7 +19,7 @@ public class AfterExtension implements ParserExtension, HtmlRendererExtension {
 		builder.nodeRendererFactory(new HtmlNodeRendererFactory() {
 			@Override
 			public NodeRenderer create(HtmlNodeRendererContext context) {
-				return new AfterRenderer(context);
+				return new YoutubeRenderer(context);
 			}
 		});
 	}

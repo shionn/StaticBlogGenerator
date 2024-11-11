@@ -1,4 +1,4 @@
-package blog.templete.formater.youtube;
+package blog.template.formater.youtube;
 
 import java.util.HashMap;
 import java.util.HashSet;

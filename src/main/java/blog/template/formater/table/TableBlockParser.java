@@ -1,4 +1,4 @@
-package blog.templete.formater.gallery;
+package blog.template.formater.table;
 
 import java.util.List;
 
@@ -14,29 +14,30 @@ import org.commonmark.parser.block.BlockStart;
 import org.commonmark.parser.block.MatchedBlockParser;
 import org.commonmark.parser.block.ParserState;
 
-import blog.templete.formater.helper.ParseStateReader;
+import blog.template.formater.helper.ParseStateReader;
 
-public class GalleryBlockParser implements BlockParser {
+public class TableBlockParser implements BlockParser {
 
-	private static final String TAG = "gallery";
+	private static final String TAG = "table";
 
 	public static class Factory implements BlockParserFactory {
 		@Override
 		public BlockStart tryStart(ParserState state, MatchedBlockParser matchedBlockParser) {
 			if (new ParseStateReader(state).startTag(TAG)) {
-				int w = new ParseStateReader(state).getAttrInt("w");
-				int h = new ParseStateReader(state).getAttrInt("h");
-				return BlockStart.of(new GalleryBlockParser(w, h)).atIndex(state.getIndent());
+				String type = new ParseStateReader(state).getAttr("class");
+				String title = new ParseStateReader(state).getAttr("title");
+				String[] cols = new ParseStateReader(state).getAttr("cols").split(",");
+				return BlockStart.of(new TableBlockParser(type, title, cols)).atIndex(state.getIndent());
 			}
 			return BlockStart.none();
 		}
 
 	}
 
-	private GalleryBlock block;
+	private TableBlock block;
 
-	public GalleryBlockParser(int w, int h) {
-		this.block = new GalleryBlock(w, h);
+	public TableBlockParser(String type, String title, String[] cols) {
+		this.block = new TableBlock(type, title, cols);
 	}
 
 	@Override
@@ -63,6 +64,12 @@ public class GalleryBlockParser implements BlockParser {
 	}
 
 	@Override
+	public void addLine(SourceLine line) {
+		if (!line.getContent().toString().contains(TAG)) {
+			block.addData(line.getContent().toString().split("\t"));
+		}
+	}
+
 	public void closeBlock() {
 	}
 
@@ -72,18 +79,13 @@ public class GalleryBlockParser implements BlockParser {
 
 	@Override
 	public boolean canHaveLazyContinuationLines() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public void addLine(SourceLine line) {
-		if (!line.getContent().toString().contains(TAG)) {
-			block.addImage(line.getContent().toString());
-		}
-	}
-
-	@Override
 	public void addSourceSpan(SourceSpan sourceSpan) {
+		// TODO Auto-generated method stub
 
 	}
 

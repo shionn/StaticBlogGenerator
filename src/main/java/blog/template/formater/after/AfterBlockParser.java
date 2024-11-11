@@ -1,4 +1,4 @@
-package blog.templete.formater.after;
+package blog.template.formater.after;
 
 import org.commonmark.internal.DocumentBlockParser;
 import org.commonmark.parser.block.BlockContinue;
@@ -7,7 +7,7 @@ import org.commonmark.parser.block.BlockStart;
 import org.commonmark.parser.block.MatchedBlockParser;
 import org.commonmark.parser.block.ParserState;
 
-import blog.templete.formater.helper.ParseStateReader;
+import blog.template.formater.helper.ParseStateReader;
 
 public class AfterBlockParser extends DocumentBlockParser {
 

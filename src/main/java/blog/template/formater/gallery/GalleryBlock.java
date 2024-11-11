@@ -1,4 +1,4 @@
-package blog.templete.formater.gallery;
+package blog.template.formater.gallery;
 
 import java.util.ArrayList;
 import java.util.List;

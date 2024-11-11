@@ -1,4 +1,4 @@
-package blog.templete.formater.table;
+package blog.template.formater.table;
 
 import java.util.ArrayList;
 import java.util.List;

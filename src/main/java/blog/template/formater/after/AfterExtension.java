@@ -1,4 +1,4 @@
-package blog.templete.formater.gallery;
+package blog.template.formater.after;
 
 import org.commonmark.parser.Parser.ParserExtension;
 import org.commonmark.renderer.NodeRenderer;
@@ -7,11 +7,11 @@ import org.commonmark.renderer.html.HtmlNodeRendererFactory;
 import org.commonmark.renderer.html.HtmlRenderer;
 import org.commonmark.renderer.html.HtmlRenderer.HtmlRendererExtension;
 
-public class GalleryExtension implements ParserExtension, HtmlRendererExtension {
+public class AfterExtension implements ParserExtension, HtmlRendererExtension {
 
 	@Override
 	public void extend(org.commonmark.parser.Parser.Builder builder) {
-		builder.customBlockParserFactory(new GalleryBlockParser.Factory());
+		builder.customBlockParserFactory(new AfterBlockParser.Factory());
 	}
 
 	@Override
@@ -19,7 +19,7 @@ public class GalleryExtension implements ParserExtension, HtmlRendererExtension 
 		builder.nodeRendererFactory(new HtmlNodeRendererFactory() {
 			@Override
 			public NodeRenderer create(HtmlNodeRendererContext context) {
-				return new GalleryRenderer(context);
+				return new AfterRenderer(context);
 			}
 		});
 	}

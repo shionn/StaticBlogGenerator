@@ -1,4 +1,4 @@
-package blog.templete.formater.after;
+package blog.template.formater.after;
 
 import java.util.HashSet;
 import java.util.Set;

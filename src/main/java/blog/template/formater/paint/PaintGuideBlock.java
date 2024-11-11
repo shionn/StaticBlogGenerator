@@ -1,4 +1,4 @@
-package blog.templete.formater.paint;
+package blog.template.formater.paint;
 
 import java.util.ArrayList;
 import java.util.List;

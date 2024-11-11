@@ -1,4 +1,4 @@
-package blog.templete.formater.youtube;
+package blog.template.formater.youtube;
 
 import org.commonmark.node.Block;
 import org.commonmark.node.Visitor;

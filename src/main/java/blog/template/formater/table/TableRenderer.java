@@ -1,4 +1,4 @@
-package blog.templete.formater.table;
+package blog.template.formater.table;
 
 import java.util.Arrays;
 import java.util.Collections;
