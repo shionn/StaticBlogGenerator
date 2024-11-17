@@ -52,6 +52,12 @@ public class Group {
 	}
 
 	public List<String> getJs() {
-		return articles.stream().flatMap(a -> a.getJs().stream()).distinct().sorted().collect(Collectors.toList());
+		return articles.stream()
+				.sorted(new ArticleComparator())
+				.filter(Article::isPublished)
+				.flatMap(a -> a.getJs().stream())
+				.distinct()
+				.sorted()
+				.collect(Collectors.toList());
 	}
 }
