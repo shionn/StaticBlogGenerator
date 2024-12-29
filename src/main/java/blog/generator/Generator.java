@@ -2,6 +2,7 @@ package blog.generator;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -51,7 +52,7 @@ public class Generator {
 					buildGroupContext(site, group),
 					new FileWriter(Configuration.get().getTargetFolder() + "/" + group.getUrl()));
 		}
-		System.out.println("Genaration done for " + site.getBase());
+		System.out.println("Generation done for " + site.getBase());
 	}
 
 	private Context buildIndexContext(Site site, int page) {
@@ -104,7 +105,13 @@ public class Generator {
 		if (Configuration.get().isDraftEnable()) {
 			File folder = new File(Configuration.get().getDraftFolder());
 			folder.mkdir();
-			Arrays.stream(folder.listFiles()).forEach(f -> f.delete());
+			Arrays.stream(folder.listFiles(new FilenameFilter() {
+
+				@Override
+				public boolean accept(File dir, String name) {
+					return name.endsWith(".html");
+				}
+			})).forEach(f -> f.delete());
 		}
 	}
 
