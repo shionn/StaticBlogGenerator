@@ -40,10 +40,17 @@ public class Site {
 				.collect(Collectors.toList());
 	}
 
+	public List<Article> getAutoPublishedDrafts() {
+		return articles.stream()
+				.sorted(new ArticleComparator())
+				.filter(a -> !a.isPublished() && a.isAutoPublished())
+				.collect(Collectors.toList());
+	}
+
 	public List<Article> getDrafts() {
 		return articles.stream()
 				.sorted(new ArticleComparator())
-				.filter(a -> !a.isPublished())
+				.filter(a -> !a.isPublished() && !a.isAutoPublished())
 				.collect(Collectors.toList());
 	}
 
