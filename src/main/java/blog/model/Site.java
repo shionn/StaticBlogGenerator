@@ -106,7 +106,9 @@ public class Site {
 	}
 
 	public List<String> getJs() {
-		return articles.stream().flatMap(a -> a.getJs().stream()).distinct().sorted().collect(Collectors.toList());
+		return articles.stream().flatMap(a -> a.getJs().stream()).distinct()
+//				.sorted()
+				.collect(Collectors.toList());
 	}
 
 	public String getBase() {

@@ -57,7 +57,7 @@ public class Group {
 				.filter(Article::isPublished)
 				.flatMap(a -> a.getJs().stream())
 				.distinct()
-				.sorted()
+//				.sorted()
 				.collect(Collectors.toList());
 	}
 }
