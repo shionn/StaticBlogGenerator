@@ -8,7 +8,7 @@ import blog.model.Article;
 import blog.model.Group;
 import blog.model.Site;
 
-public class SitemapGenerator {
+public class SitemapTxtGenerator {
 
 	public void generate(Site site) throws IOException {
 		try (FileWriter w = new FileWriter(Configuration.get().getTargetFolder() + "/sitemap.txt");
@@ -23,13 +23,15 @@ public class SitemapGenerator {
 				}
 			}
 			for (Group group : site.getGroups()) {
-				append(bw, site, group.getUrl());
+				if (!group.getArticles().isEmpty()) {
+					append(bw, site, group.getUrl());
+				}
 			}
 		}
 	}
 
-	private void append(BufferedWriter bw, Site site, String file) throws IOException {
-		bw.append(site.getBase()).append("/" + file);
+	private void append(BufferedWriter bw, Site site, String url) throws IOException {
+		bw.append(site.getBase()).append("/" + url);
 		bw.newLine();
 	}
 }

@@ -52,7 +52,8 @@ public class Generator {
 					buildGroupContext(site, group),
 					new FileWriter(Configuration.get().getTargetFolder() + "/" + group.getUrl()));
 		}
-		new SitemapGenerator().generate(site);
+		new SitemapTxtGenerator().generate(site);
+		new SitemapXmlGenerator().generate(site);
 		System.out.println("Generation done for " + site.getBase());
 	}
 
