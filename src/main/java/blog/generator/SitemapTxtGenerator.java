@@ -17,15 +17,21 @@ public class SitemapTxtGenerator {
 			for (int page = 1; page <= site.getHomePageCount(); page++) {
 				append(bw, site, "index-" + page + ".html");
 			}
-			for (Article article : site.getArticles()) {
-				if (article.isPublished()) {
-					append(bw, site, article.getUrl());
-				}
+			for (Article article : site
+					.getArticles()
+					.stream()
+					.filter(Article::isPublished)
+					.sorted((a, b) -> a.getUrl().compareTo(b.getUrl()))
+					.toList()) {
+				append(bw, site, article.getUrl());
 			}
-			for (Group group : site.getGroups()) {
-				if (!group.getArticles().isEmpty()) {
-					append(bw, site, group.getUrl());
-				}
+			for (Group group : site
+					.getGroups()
+					.stream()
+					.filter(Group::isGenerated)
+					.sorted((a, b) -> a.getUrl().compareTo(b.getUrl()))
+					.toList()) {
+				append(bw, site, group.getUrl());
 			}
 		}
 	}

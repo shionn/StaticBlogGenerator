@@ -26,16 +26,22 @@ public class SitemapXmlGenerator {
 			for (int page = 1; page <= site.getHomePageCount(); page++) {
 				append(bw, site, "index-" + page + ".html", site.getHomePageArticles(0).get(0).getDate());
 			}
-			for (Article article : site.getArticles()) {
-				if (article.isPublished()) {
-					append(bw, site, article.getUrl(),
-							article.getUpdateDate() == null ? article.getDate() : article.getUpdateDate());
-				}
+			for (Article article : site
+					.getArticles()
+					.stream()
+					.filter(Article::isPublished)
+					.sorted((a, b) -> a.getUrl().compareTo(b.getUrl()))
+					.toList()) {
+				append(bw, site, article.getUrl(),
+						article.getUpdateDate() == null ? article.getDate() : article.getUpdateDate());
 			}
-			for (Group group : site.getGroups()) {
-				if (!group.getArticles().isEmpty()) {
-					append(bw, site, group.getUrl(), group.getArticles().get(0).getDate());
-				}
+			for (Group group : site
+					.getGroups()
+					.stream()
+					.filter(Group::isGenerated)
+					.sorted((a, b) -> a.getUrl().compareTo(b.getUrl()))
+					.toList()) {
+				append(bw, site, group.getUrl(), group.getArticles().get(0).getDate());
 			}
 
 			bw.append("</urlset>");
