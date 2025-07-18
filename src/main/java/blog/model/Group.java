@@ -33,7 +33,7 @@ public class Group {
 
 	public String getUrl() {
 		return configuration.getProperty(type.name().toLowerCase() + ".subfolder") + "/"
-				+ name.toLowerCase().replaceAll("[^a-z]", "-") + ".html";
+				+ name.toLowerCase().replaceAll("[^a-z0-9]", "-") + ".html";
 	}
 
 	public void add(Article article) {
