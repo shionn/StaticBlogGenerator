@@ -38,6 +38,10 @@ public class Configuration {
 		return props.getProperty("target");
 	}
 
+	public String getTemplateFolder() {
+		return props.getProperty("template.folder", "templates/");
+	}
+
 	public boolean isCategopryEnable() {
 		return Boolean.parseBoolean(props.getProperty("category.enable"));
 	}
