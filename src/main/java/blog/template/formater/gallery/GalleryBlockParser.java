@@ -1,5 +1,7 @@
 package blog.template.formater.gallery;
 
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.commonmark.node.Block;
@@ -14,6 +16,7 @@ import org.commonmark.parser.block.BlockStart;
 import org.commonmark.parser.block.MatchedBlockParser;
 import org.commonmark.parser.block.ParserState;
 
+import blog.template.formater.gallery.GalleryImage.GalleryImageBuilder;
 import blog.template.formater.helper.ParseStateReader;
 
 public class GalleryBlockParser implements BlockParser {
@@ -78,8 +81,22 @@ public class GalleryBlockParser implements BlockParser {
 	@Override
 	public void addLine(SourceLine line) {
 		if (!line.getContent().toString().contains(TAG)) {
-			block.addImage(line.getContent().toString());
+			block.addImage(build(Arrays.asList(line.getContent().toString().split("\t")).iterator()));
 		}
+	}
+
+
+	private GalleryImage build(Iterator<String> line) {
+		GalleryImageBuilder img = GalleryImage.builder().url(line.next());
+		while(line.hasNext()) {
+			String arg = line.next();
+			if (Arrays.asList("right", "left").contains(arg)) {
+				img.position(arg);
+			}else {
+				img.title(arg);
+			}
+		}
+		return img.build();
 	}
 
 	@Override

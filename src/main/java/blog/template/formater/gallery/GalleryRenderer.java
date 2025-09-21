@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 import org.commonmark.node.Node;
 import org.commonmark.renderer.NodeRenderer;
@@ -32,26 +31,28 @@ public class GalleryRenderer implements NodeRenderer {
 	@Override
 	public void render(Node node) {
 		writer.tag("div", context.extendAttributes(node, "truc ? ", Collections.singletonMap("class", "gallery")));
-		for (String imgStr : gallery(node).getImgs()) {
-			String[] img = Pattern.compile("\t").split(imgStr);
+		for (GalleryImage img : gallery(node).getImgs()) {
 
-			writer.tag("a", Collections.singletonMap("href", url(img)));
+			writer.tag("a", Collections.singletonMap("href", img.getUrl()));
 			writer.tag("img", buildImgAttrs(img, gallery(node)));
 			writer.tag("/a");
 		}
 		writer.tag("/div");
 	}
 
-	private Map<String, String> buildImgAttrs(String[] img, GalleryBlock gallery) {
+	private Map<String, String> buildImgAttrs(GalleryImage img, GalleryBlock gallery) {
 		Map<String, String> attrs = new HashMap<String, String>();
-		String url = url(img);
+		String url = img.getUrl();
 		if (gallery.getW() > 0 && gallery.getH() > 0) {
 			attrs.put("width", Integer.toString(gallery.getW()));
 			attrs.put("height", Integer.toString(gallery.getH()));
 			url = new GalleryThumbnail(gallery.getW(), gallery.getH()).create(url);
 		}
-		if (img.length > 1) {
-			attrs.put("style", "object-position: " + img[1]);
+		if (img.getPosition() != null) {
+			attrs.put("style", "object-position: " + img.getPosition());
+		}
+		if (img.getTitle() != null) {
+			attrs.put("title", img.getTitle());
 		}
 		attrs.put("src", url);
 		return attrs;
@@ -59,10 +60,6 @@ public class GalleryRenderer implements NodeRenderer {
 
 	private GalleryBlock gallery(Node node) {
 		return (GalleryBlock) node;
-	}
-
-	private String url(String[] img) {
-		return img[0];
 	}
 
 }

@@ -8,7 +8,7 @@ import org.commonmark.node.Visitor;
 
 public class GalleryBlock extends Block {
 
-	private List<String> imgs = new ArrayList<>();
+	private List<GalleryImage> imgs = new ArrayList<>();
 	private int w;
 	private int h;
 
@@ -22,11 +22,11 @@ public class GalleryBlock extends Block {
 		System.out.println("accept");
 	}
 
-	public void addImage(String img) {
+	public void addImage(GalleryImage img) {
 		this.imgs.add(img);
 	}
 
-	public List<String> getImgs() {
+	public List<GalleryImage> getImgs() {
 		return imgs;
 	}
 
