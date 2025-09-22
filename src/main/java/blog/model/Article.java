@@ -39,6 +39,10 @@ public class Article {
 		return metadata.getType() == type;
 	}
 
+	public boolean isToCheck() {
+		return metadata.isToCheck();
+	}
+
 	public boolean isPublished() {
 		return metadata.isPublished() && metadata.getDate().before(new Date());
 	}
@@ -117,5 +121,11 @@ public class Article {
 	public List<String> getJs() {
 		return metadata.getJs();
 	}
+
+	@Override
+	public String toString() {
+		return "Article [title=" + metadata.getTitle() + ", url=" + getUrl() + "]";
+	}
+
 
 }

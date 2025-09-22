@@ -7,8 +7,10 @@ import java.util.stream.Collectors;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 @RequiredArgsConstructor
+@ToString
 public class Group {
 	public enum Type {
 		Category,

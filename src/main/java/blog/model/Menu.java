@@ -35,7 +35,7 @@ public class Menu {
 	}
 
 	private String getExtenssion() {
-		if (path.startsWith("https://") || path.startsWith("mailto:")) {
+		if (isOutsite()) {
 			return "";
 		}
 		return ".html";
@@ -47,5 +47,9 @@ public class Menu {
 
 	public boolean isVisible() {
 		return date == null || date.before(new Date());
+	}
+
+	public boolean isOutsite() {
+		return path.startsWith("https://") || path.startsWith("mailto:");
 	}
 }

@@ -12,6 +12,7 @@ import java.util.Map;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import blog.checker.IntegrityChecker;
 import blog.model.Article;
 import blog.model.Group;
 import blog.model.Site;
@@ -55,6 +56,7 @@ public class Generator {
 		new SitemapTxtGenerator().generate(site);
 		new SitemapXmlGenerator().generate(site);
 		System.out.println("Generation done for " + site.getBase());
+		new IntegrityChecker().check(site);
 	}
 
 	private Context buildIndexContext(Site site, int page) {

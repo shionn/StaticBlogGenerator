@@ -10,9 +10,11 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
 @JsonAutoDetect(fieldVisibility = Visibility.ANY)
+@ToString
 public class Metadata {
 	public enum Type {
 		page,
@@ -29,6 +31,7 @@ public class Metadata {
 	private List<String> tags;
 	private List<String> js = new ArrayList<String>();
 	private boolean published = true;
+	private boolean toCheck = true;
 	private String logo;
 	private String author;
 
