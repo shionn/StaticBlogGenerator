@@ -2,6 +2,8 @@ package blog.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -80,7 +82,17 @@ public class Article {
 	}
 
 	public String getFullContent() throws IOException {
-		return new ContentFormater().fullPost(getRawContent());
+		try {
+			return new ContentFormater().fullPost(getRawContent());
+		} catch (RuntimeException e) {
+			StringWriter sw = new StringWriter();
+			PrintWriter pw = new PrintWriter(sw);
+			pw.print("<pre>");
+			e.printStackTrace(pw);
+			pw.print("</pre>");
+			pw.close();
+			return sw.toString();
+		}
 	}
 
 	public Date getDate() {

@@ -33,9 +33,15 @@ public class PaintGuideRenderer implements NodeRenderer {
 		writer.tag("tbody");
 		for (String line : guide(node).getLines()) {
 			writer.tag("tr");
-			writer.tag("td", Collections.singletonMap("data-id", line.split("\t")[1]));
-			writer.text(line.split("\t")[0]);
-			writer.tag("/td");
+			try {
+				writer.tag("td", Collections.singletonMap("data-id", line.split("\t")[1]));
+				writer.text(line.split("\t")[0]);
+				writer.tag("/td");
+			} catch (ArrayIndexOutOfBoundsException e) {
+				writer.tag("td");
+				writer.text("Parse Error: " + line);
+				writer.tag("/td");
+			}
 			writer.tag("/tr");
 		}
 		writer.tag("/tbody");
