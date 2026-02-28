@@ -30,11 +30,13 @@ public class TableRenderer implements NodeRenderer {
 	@Override
 	public void render(Node node) {
 		writer.tag("table", buildTableAttr(collection(node)));
+		writer.line();
 
 		thead(collection(node));
 		tbody(collection(node));
 
 		writer.tag("/table");
+		writer.line();
 	}
 
 	private void tbody(TableBlock node) {
@@ -43,7 +45,9 @@ public class TableRenderer implements NodeRenderer {
 			if (datas.length == 1) {
 				if (body) {
 					writer.tag("/tbody");
+					writer.line();
 					writer.tag("thead");
+					writer.line();
 					body = false;
 				}
 				writer.tag("tr");
@@ -51,10 +55,13 @@ public class TableRenderer implements NodeRenderer {
 				writer.text(datas[0]);
 				writer.tag("/th");
 				writer.tag("/tr");
+				writer.line();
 			} else {
 				if (!body) {
 					writer.tag("/thead");
+					writer.line();
 					writer.tag("tbody");
+					writer.line();
 					body = true;
 				}
 				writer.tag("tr");
@@ -64,22 +71,27 @@ public class TableRenderer implements NodeRenderer {
 					writer.tag("/td");
 				});
 				writer.tag("/tr");
+				writer.line();
 			}
 		}
 		if (body) {
 			writer.tag("/tbody");
+			writer.line();
 		} else {
 			writer.tag("/thead");
+			writer.line();
 		}
 	}
 
 	private void thead(TableBlock node) {
 		writer.tag("thead");
+		writer.line();
 		writer.tag("tr");
 		writer.tag("th", Collections.singletonMap("colspan", Integer.toString(node.getCols().length)));
 		writer.text(node.getTitle());
 		writer.tag("/th");
 		writer.tag("/tr");
+		writer.line();
 		writer.tag("tr");
 		Arrays.stream(node.getCols()).forEach(col -> {
 			writer.tag("th");
@@ -87,6 +99,7 @@ public class TableRenderer implements NodeRenderer {
 			writer.tag("/th");
 		});
 		writer.tag("/tr");
+		writer.line();
 	}
 
 	private Map<String, String> buildTableAttr(TableBlock node) {
