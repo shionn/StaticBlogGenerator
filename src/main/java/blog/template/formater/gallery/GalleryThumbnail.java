@@ -42,6 +42,7 @@ public class GalleryThumbnail {
 				targetUrl = url;
 			}
 		}
+		file.setReadable(true, false);
 		return targetUrl;
 	}
 
