@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
@@ -22,12 +23,13 @@ import blog.template.TemplateEngineBuilder;
 public class Generator {
 
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, ParseException {
 		new Generator().generate();
 	}
 
-	public void generate() throws IOException {
+	public void generate() throws IOException, ParseException {
 		Site site = new SiteBuilder().build();
+		new CalendarDayMissing().generate(site);
 		prepareDestFolder(site);
 		TemplateEngine engine = new TemplateEngineBuilder().build();
 		engine.process("template", buildIndexContext(site, 0),

@@ -2,6 +2,8 @@ package blog.generator;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.Properties;
 
 public class Configuration {
@@ -72,6 +74,22 @@ public class Configuration {
 
 	public long getPageSize() {
 		return Long.parseLong(props.getProperty("page.size"));
+	}
+
+	public boolean isDraftCalendarEnable() {
+		return props.getProperty("draft.calendar.start") != null && props.getProperty("draft.calendar.day") != null;
+	}
+
+	public String getDraftCalendarStartDate() {
+		return props.getProperty("draft.calendar.start");
+	}
+
+	public int getDraftCalendarDay() {
+		return Integer.parseInt(props.getProperty("draft.calendar.day"));
+	}
+
+	public SimpleDateFormat getDateFormat() {
+		return new SimpleDateFormat(props.getProperty("date.format"), Locale.FRANCE);
 	}
 
 }

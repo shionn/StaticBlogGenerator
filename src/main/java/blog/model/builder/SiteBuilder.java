@@ -40,7 +40,7 @@ public class SiteBuilder {
 			Group category = retreiveGroup(groups, metadata.getCategory(), Type.Category, configuration);
 			Article article = new Article(metadata, category, tags, file, configuration);
 			if (article.isPublished()) {
-				category.add(article);	
+				category.add(article);
 				tags.stream().forEach(t -> t.add(article));
 			}
 			articles.add(article);

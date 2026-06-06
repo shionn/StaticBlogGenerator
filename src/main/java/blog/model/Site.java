@@ -3,22 +3,27 @@ package blog.model;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import blog.generator.Configuration;
 import blog.model.Metadata.Type;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 public class Site {
-	private List<Article> articles;
-	private Collection<Group> groups;
-	private Menu menu;
+	private final List<Article> articles;
+	private final Collection<Group> groups;
+	private final Menu menu;
+	@Setter
+	private List<Date> draftMissingDates;
 
 	public List<Article> getLastArticles() {
 		return getHomePageArticles(0);
@@ -52,6 +57,15 @@ public class Site {
 				.sorted(new ArticleComparator())
 				.filter(a -> !a.isPublished() && !a.isAutoPublished())
 				.collect(Collectors.toList());
+	}
+
+	public List<String> getFormatedMissingDateDraft() {
+		return Optional
+				.ofNullable(draftMissingDates)
+				.stream()
+				.flatMap(List::stream)
+				.map(d -> Configuration.get().getDateFormat().format(d))
+				.toList();
 	}
 
 	public List<Group> getTags() {
